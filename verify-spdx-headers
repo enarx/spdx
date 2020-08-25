@@ -1,0 +1,39 @@
+#!/usr/bin/python3
+# SPDX-License-Identifier: Apache-2.0
+
+import extensions
+import os
+import sys
+
+# Given a root directory and a set of file extensions, this function finds all
+# files under the root directory with an extension in the list of extensions.
+def yield_files(root_dir, types):
+    for root, dirs, files in os.walk(root_dir):
+        for file in files:
+            name, extension = os.path.splitext(file)
+            extension = extension.replace(".", "")
+            if extension in types:
+                yield (os.path.join(root, file), extension)
+
+# Get the input file types to check.
+types_to_check = sys.argv[1]
+types_to_check = {f.strip() for f in types_to_check.split(',')}
+
+# Get the license header to verify.
+license = sys.argv[2]
+
+# Get the calling workflow's workspace.
+workspace = os.environ.get("GITHUB_WORKSPACE", None)
+# Grab all file paths to check.
+files_to_check = yield_files(workspace, types_to_check)
+
+# Check each file for its SPDX header.
+for file in files_to_check:
+    try:
+        success = getattr(extensions, file[1])(file[0], license)
+    except AttributeError:
+        print(f'File type {file[1]} does not have SPDX header logic defined. Please consider writing a function for it.')
+        continue
+
+# Exit with a failure if there was one during checking.
+exit(abs(int(success)-1))

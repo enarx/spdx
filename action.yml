@@ -1,0 +1,25 @@
+name: spdx
+description: Verify that files include SPDX license headers
+
+branding:
+  icon: zap
+  color: gray-dark
+
+inputs:
+  extensions:
+    description: >
+      Extensions to verify SPDX headers for. Provide a comma-separated list.
+
+      For example: rs, py
+    required: true
+    default: ''
+  license:
+    description: >
+      The SPDX license ID to check for. Example: "Apache-2.0"
+    required: true
+    default: ''
+runs:
+  using: "composite"
+  steps:
+    - run: $GITHUB_ACTION_PATH/verify-spdx-headers "${{ inputs.extensions }}" "${{ inputs.license }}"
+      shell: bash
