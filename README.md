@@ -9,11 +9,10 @@ with some guidance about how to fix it.
 ## Usage
 
 Include the action as part of a workflow that performs a checkout. You'll also
-need to provide the required inputs:
+need to provide input:
 
-- `extensions`: Extensions to verify SPDX headers for. Provide a
-  comma-separated list. For example: `rs, py`
-- `license`: The SPDX license ID to check for. Example: `Apache-2.0`
+- `licenses`: Extensions and valid SPDX headers for them. Provide a dictionary,
+  with file types as the keys and accepted SPDX IDs in a list as the values.
 
 Here's an example:
 
@@ -31,25 +30,25 @@ jobs:
       uses: actions/checkout@v2
     - uses: enarx/spdx@master
       with:
-        extensions: 'rs, py'
-        license: 'Apache-2.0'
+        extensions: >
+          {
+            'rs': ['Apache-2.0', 'MIT']
+            'py': ['GPLv3']
+          }
 ```
 
 ## Adding support for new file extensions
 
-Rules for individual file types are defined with a function in `extensions.py`.
-If the file type you'd like to check isn't yet supported, feel free to implement
-a function for it and submit a PR.
+Rules for individual file types are defined with a dictionary in
+[`extensions.py`](extensions.py). If the file type you'd like to check isn't
+yet supported, feel free to add rules for it and submit a PR.
 
-Your new function should be named the same as the file extension, and should
-accept two input fields:
+The file extension (for example, `py` for Python) should be a new key in the
+dictionary. The value should be another dictionary, with the following key-value
+pairs:
 
-- `file`: Path to the file to test.
-- `license`: A string containing the SPDX license identifier to test for.
+- `shebang`: A boolean indicating whether the first line of the file extension
+  may be a shebang.
+- `comment`: A list of acceptable comment starters for the file extension.
 
-Your function should open the file and perform whatever logic is needed to
-determine if the file has a valid SPDX header. If it does, return `True`. If it
-doesn't, print an error message explaining where the SPDX header should be
-placed, and return `False`.
-
-See [extensions.py](extensions.py) for examples.
+See [`extensions.py`](extensions.py) for examples.
