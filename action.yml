@@ -8,18 +8,14 @@ branding:
 inputs:
   licenses:
     description: >
-      Extensions and acceptable SPDX headers for them.
-      Provide a dictionary, with file types as the keys and a list of accepted
-      licenses as the values. For example:
+      A JSON array of all accepted licenses. For example:
 
-      {
-        "rs": ["Apache-2.0", "MIT"],
-        "py": ["GPLv3"]
-      }
+      [ "Apache-2.0", "MIT" ]
     required: true
     default: ''
 runs:
   using: "composite"
   steps:
-    - run: $GITHUB_ACTION_PATH/verify-spdx-headers "${{ inputs.extensions }}"
+    - run: $GITHUB_ACTION_PATH/verify-spdx-headers
+      env: INPUT_LICENSES=${{ inputs.licenses }}
       shell: bash
