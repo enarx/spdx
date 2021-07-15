@@ -52,12 +52,20 @@ class Index:
         '.toml': 'toml',
         '.md': 'md',
         '.rb': 'ruby',
+        '.c': 'c',
+        '.h': 'c',
+        '.cpp': 'c++',
+        '.hpp': 'c++',
+        '.cc': 'c++',
+        '.hh': 'c++',
     }
 
     def __init__(self):
         self.__languages = {
             'python': Language('#+', shebang=True),
             'ruby': Language('#+', shebang=True),
+            'c': Language('//+', ('/\\*', '\\*/')),
+            'c++': Language('//+', ('/\\*', '\\*/')),
             'rust': Language('//+', '//!', ('/\\*', '\\*/')),
         }
 
