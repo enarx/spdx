@@ -58,7 +58,7 @@ class Index:
         self.__languages = {
             'python': Language('#+', shebang=True),
             'ruby': Language('#+', shebang=True),
-            'rust': Language('///?', '//!', ('/\\*', '\\*/')),
+            'rust': Language('//+', '//!', ('/\\*', '\\*/')),
         }
 
     def language(self, path):
