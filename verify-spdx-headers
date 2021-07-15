@@ -40,6 +40,7 @@ class Index:
         'python3': 'python',
         'python2': 'python',
         'python': 'python',
+        'ruby': 'ruby',
     }
 
     EXTENSIONS = {
@@ -50,11 +51,13 @@ class Index:
         '.json': 'json',
         '.toml': 'toml',
         '.md': 'md',
+        '.rb': 'ruby',
     }
 
     def __init__(self):
         self.__languages = {
             'python': Language('#+', shebang=True),
+            'ruby': Language('#+', shebang=True),
             'rust': Language('///?', '//!', ('/\\*', '\\*/')),
         }
 
