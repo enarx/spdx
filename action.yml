@@ -8,14 +8,13 @@ branding:
 inputs:
   licenses:
     description: >
-      A JSON array of all accepted licenses. For example:
+      A space-separated list of all accepted licenses. For example:
 
-      [ "Apache-2.0", "MIT" ]
+      Apache-2.0 MIT
     required: true
     default: ''
 runs:
   using: "composite"
   steps:
-    - run: $GITHUB_ACTION_PATH/verify-spdx-headers
-      env: INPUT_LICENSES=${{ inputs.licenses }}
+    - run: echo "${{ inputs.licenses }}" | xargs $GITHUB_ACTION_PATH/verify-spdx-headers
       shell: bash
