@@ -73,8 +73,8 @@ class Index:
         name = self.EXTENSIONS.get(os.path.splitext(path)[1])
         if name is None:
             interpreter = None
-            with open(path) as f:
-                if f.read(2) == '#!':
+            with open(path, "rb") as f:
+                if f.read(2) == bytearray('#!'.encode('ascii')):
                     interpreter = f.readline().rstrip().rsplit(os.path.sep)[-1]
             name = self.INTERPRETERS.get(interpreter)
         return self.__languages.get(name)
