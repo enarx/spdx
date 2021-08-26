@@ -124,7 +124,10 @@ if __name__ == '__main__':
     index = Index()
     for (path, license) in index.scan("."):
         if license not in licenses:
-            print(f"{license:16} {path}")
+            if license == None:
+                print(f"NO SPDX {path}")
+            else:
+                print(f"{license:16} {path}")
             rv = 1
 
     raise SystemExit(rv)
