@@ -45,6 +45,7 @@ class Index:
 
     EXTENSIONS = {
         '.py': 'python',
+        '.proto': 'protobuf',
         '.rs': 'rust',
         '.yml': 'yaml',
         '.yaml': 'yaml',
@@ -67,6 +68,7 @@ class Index:
             'c': Language('//+', ('/\\*', '\\*/')),
             'c++': Language('//+', ('/\\*', '\\*/')),
             'rust': Language('//+', '//!', ('/\\*', '\\*/')),
+            'protobuf': Language('//+', '//!', ('/\\*', '\\*/')),
         }
 
     def language(self, path):
