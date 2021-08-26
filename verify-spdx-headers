@@ -75,7 +75,12 @@ class Index:
             interpreter = None
             with open(path, "rb") as f:
                 if f.read(2) == bytearray('#!'.encode('ascii')):
-                    interpreter = f.readline().rstrip().rsplit(os.path.sep)[-1]
+                    # assume a text file and retry as text file
+                    try:
+                        with open(path, "r") as t:
+                            interpreter = t.readline().rstrip().rsplit(os.path.sep)[-1]
+                    except:
+                        pass
             name = self.INTERPRETERS.get(interpreter)
         return self.__languages.get(name)
 
