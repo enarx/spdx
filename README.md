@@ -49,5 +49,5 @@ We identify the source code of a language using two strategies.
 ## Adding Support for New Languages
 
 Adding support for new languages should be trivial. See the examples for
-[ruby](https://github.com/enarx/spdx/commit/1d7f186e69e3d8d6e5e8837a1d2f0aac20b51942)
-and [c/c++](https://github.com/enarx/spdx/commit/32f8b3d964c09dee5e4052336f1271624db29bfb).
+[Ruby](https://github.com/enarx/spdx/commit/1d7f186e69e3d8d6e5e8837a1d2f0aac20b51942)
+and [C/C++](https://github.com/enarx/spdx/commit/32f8b3d964c09dee5e4052336f1271624db29bfb).
