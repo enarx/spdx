@@ -24,14 +24,15 @@ class Language:
     def license(self, path):
         "Find the license from the SPDX header."
         with open(path) as f:
-            line = f.readline()
-            if self.__shebang and line.startswith('#!'):
+            while f:
                 line = f.readline()
+                if self.__shebang and line.startswith('#!'):
+                    line = f.readline()
 
-        for matcher in self.__match:
-            match = matcher.match(line)
-            if match:
-                return match.group(1)
+                for matcher in self.__match:
+                    match = matcher.match(line)
+                    if match:
+                        return match.group(1)
 
         return None
 
