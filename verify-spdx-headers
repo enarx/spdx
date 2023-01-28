@@ -26,8 +26,6 @@ class Language:
         with open(path) as f:
             while f:
                 line = f.readline()
-                if self.__shebang and line.startswith('#!'):
-                    line = f.readline()
 
                 for matcher in self.__match:
                     match = matcher.match(line)
