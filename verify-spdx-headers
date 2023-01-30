@@ -24,15 +24,14 @@ class Language:
     def license(self, path):
         "Find the license from the SPDX header."
         with open(path) as f:
-            while f:
-                line = f.readline()
-
+            lines = f.readlines()
+            for line in lines:
                 for matcher in self.__match:
                     match = matcher.match(line)
                     if match:
                         return match.group(1)
-
         return None
+
 
 class Index:
     INTERPRETERS = {
@@ -95,7 +94,9 @@ class Index:
 
             for file in files:
                 path = os.path.join(root, file)
-
+                
+                print('Checking ' + path + '...\n')
+                
                 # Find the language of the file.
                 language = self.language(path)
                 if language is None:
