@@ -94,7 +94,7 @@ class Index:
 
             for file in files:
                 path = os.path.join(root, file)
-                               
+
                 # Find the language of the file.
                 language = self.language(path)
                 if language is None:
