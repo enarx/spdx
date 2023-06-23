@@ -24,9 +24,8 @@ class Language:
     def license(self, path):
         "Find the license from the SPDX header."
         with open(path) as f:
-            while f:
-                line = f.readline()
-
+            lines = f.readlines()
+            for line in lines:
                 for matcher in self.__match:
                     match = matcher.match(line)
                     if match:
