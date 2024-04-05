@@ -39,6 +39,7 @@ class Index:
         'python2': 'python',
         'python': 'python',
         'ruby': 'ruby',
+        'tsm': 'typescript',
     }
 
     EXTENSIONS = {
@@ -57,6 +58,7 @@ class Index:
         '.hpp': 'c++',
         '.cc': 'c++',
         '.hh': 'c++',
+        '.ts': 'typescript',
     }
 
     def __init__(self):
@@ -67,6 +69,7 @@ class Index:
             'c++': Language('//+', ('/\\*', '\\*/')),
             'rust': Language('//+', '//!', ('/\\*', '\\*/')),
             'protobuf': Language('//+', '//!', ('/\\*', '\\*/')),
+            'typescript': Language('//+', ('/\\*', '\\*/'), shebang=True),
         }
 
     def language(self, path):
