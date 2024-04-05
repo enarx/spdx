@@ -98,6 +98,10 @@ class Index:
             for file in files:
                 path = os.path.join(root, file)
 
+                # If the file is a symlink, don't bother
+                if os.path.islink( path ):
+                    continue
+
                 # Find the language of the file.
                 language = self.language(path)
                 if language is None:
