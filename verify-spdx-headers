@@ -101,12 +101,11 @@ class Index:
             for file in files:
                 path = os.path.join(root, file)
                 
-                # If the file is empty skip. 
-                if os.path.getsize(path) == 0:
-                    continue
-
                 # If the file is a symlink, don't bother
                 if os.path.islink( path ):
+                    continue
+                # If the file is empty skip. 
+                if os.path.getsize(path) == 0:
                     continue
                 # Find the language of the file.
                 language = self.language(path)
