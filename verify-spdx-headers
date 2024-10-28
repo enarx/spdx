@@ -4,7 +4,7 @@
 import os
 import re
 
-SLUG = re.compile('[a-zA-Z0-9.-]+')
+SLUG = re.compile('[- a-zA-Z0-9.]+')
 SPDX = re.compile(f'SPDX-License-Identifier:\s+({SLUG.pattern})')
 
 class Language:
