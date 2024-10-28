@@ -59,6 +59,7 @@ class Index:
         '.hpp': 'c++',
         '.cc': 'c++',
         '.hh': 'c++',
+        '.td': 'tablegen',
         '.ts': 'typescript',
         '.sh': 'shell',
     }
@@ -71,6 +72,7 @@ class Index:
             'c++': Language('//+', ('/\\*', '\\*/')),
             'rust': Language('//+', '//!', ('/\\*', '\\*/')),
             'protobuf': Language('//+', '//!', ('/\\*', '\\*/')),
+            'tablegen': Language('//+'),
             'typescript': Language('//+', ('/\\*', '\\*/'), shebang=True),
             'shell': Language('#+', shebang=True),
         }
