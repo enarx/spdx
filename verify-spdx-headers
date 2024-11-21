@@ -5,7 +5,7 @@ import os
 import re
 
 SLUG = re.compile('[a-zA-Z0-9.-]+')
-SPDX = re.compile(f'SPDX-License-Identifier:\s+({SLUG.pattern})')
+SPDX = re.compile(f'SPDX-License-Identifier:\\s+({SLUG.pattern})')
 
 class Language:
     def __init__(self, *comments, shebang=False):
@@ -18,7 +18,7 @@ class Language:
             if isinstance(comment, tuple):
                 (init, fini) = comment
 
-            pattern = f"^{init}\s*{SPDX.pattern}\s*{fini}\s*$"
+            pattern = f"^{init}\\s*{SPDX.pattern}\\s*{fini}\\s*$"
             self.__match.append(re.compile(pattern))
 
     def license(self, path):
