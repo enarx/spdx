@@ -8,13 +8,15 @@ branding:
 inputs:
   licenses:
     description: >
-      A space-separated list of all accepted licenses. For example:
+      A newline-separated list of all accepted licenses. For example:
 
-      Apache-2.0 MIT
+      licenses: |-
+        Apache-2.0
+        Apache-2.0 WITH LLVM-exception
     required: true
     default: ''
 runs:
   using: "composite"
   steps:
-    - run: echo "${{ inputs.licenses }}" | xargs $GITHUB_ACTION_PATH/verify-spdx-headers
+    - run: echo "${{ inputs.licenses }}" | xargs -d "\n" $GITHUB_ACTION_PATH/verify-spdx-headers
       shell: bash
