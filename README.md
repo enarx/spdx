@@ -27,7 +27,9 @@ jobs:
       uses: actions/checkout@v2
     - uses: enarx/spdx@master
       with:
-        licenses: Apache-2.0 MIT
+        licenses: |-
+          Apache-2.0
+          MIT
 ```
 
 ## How it Works
