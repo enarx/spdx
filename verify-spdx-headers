@@ -66,7 +66,8 @@ class Index:
         '.sh': 'shell',
     }
 
-    def __init__(self):
+    def __init__(self, ignore_paths = {}):
+        self.__ignore_paths = { "./.git" }.union(ignore_paths)
         self.__languages = {
             'python': Language('#+', shebang=True),
             'ruby': Language('#+', shebang=True),
@@ -96,16 +97,18 @@ class Index:
         return self.__languages.get(name)
 
     def scan(self, root):
-        IGNORE_DIRS = { ".git" }
 
         for root, dirs, files in os.walk(root):
             # Ignore the specified directories.
-            for dir in IGNORE_DIRS.intersection(dirs):
-                dirs.remove(dir)
+            for dir in self.__ignore_paths.intersection({os.path.join(root, d) for d in dirs}):
+                dirs.remove(os.path.basename(dir))
 
             for file in files:
                 path = os.path.join(root, file)
                 
+                # If the file is in the ignore list, skip it.
+                if path in self.__ignore_paths:
+                    continue
                 # If the file is a symlink, don't bother
                 if os.path.islink( path ):
                     continue
@@ -135,8 +138,14 @@ if __name__ == '__main__':
             print("Invalid license '%s'!" % license)
             raise SystemExit(1)
 
+    ignore_paths = os.getenv('INPUT_IGNORE_PATHS')
+    if ignore_paths is not None:
+        ignore_paths = {"./"+p.strip() for p in ignore_paths.split("\n")}
+    else:
+        ignore_paths = {}
+    
     rv = 0
-    index = Index()
+    index = Index(ignore_paths = ignore_paths)
     for (path, license) in index.scan("."):
         if license not in licenses:
             if license == None:
