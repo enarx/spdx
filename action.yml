@@ -15,8 +15,19 @@ inputs:
         Apache-2.0 WITH LLVM-exception
     required: true
     default: ''
+  ignore-paths:
+    description: >
+      A newline-separated list of any paths to ignore. For example:
+
+      ignore-paths: |-
+        src/generated/
+        src/ignore-file.md
+    required: false
+    default: ''
 runs:
   using: "composite"
   steps:
     - run: echo "${{ inputs.licenses }}" | xargs -d "\n" $GITHUB_ACTION_PATH/verify-spdx-headers
       shell: bash
+      env:
+        INPUT_IGNORE_PATHS: ${{ inputs.ignore-paths }}
