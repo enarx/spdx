@@ -70,13 +70,13 @@ class Index:
         self.__languages = {
             'python': Language('#+', shebang=True),
             'ruby': Language('#+', shebang=True),
-            'c': Language('//+', ('/\\*', '\\*/')),
-            'c++': Language('//+', ('/\\*', '\\*/')),
-            'cuda-c': Language('//+', ('/\\*', '\\*/')),
-            'rust': Language('//+', '//!', ('/\\*', '\\*/')),
-            'protobuf': Language('//+', '//!', ('/\\*', '\\*/')),
+            'c': Language('//+', ('[ /]\\*', '\\*?/?')),
+            'c++': Language('//+', ('[ /]\\*', '\\*?/?')),
+            'cuda-c': Language('//+', ('[ /]\\*', '\\*?/?')),
+            'rust': Language('//+', '//!', ('[ /]\\*', '\\*?/?')),
+            'protobuf': Language('//+', '//!', ('[ /]\\*', '\\*?/?')),
             'tablegen': Language('//+'),
-            'typescript': Language('//+', ('/\\*', '\\*/'), shebang=True),
+            'typescript': Language('//+', ('[ /]\\*', '\\*?/?'), shebang=True),
             'shell': Language('#+', shebang=True),
         }
 
